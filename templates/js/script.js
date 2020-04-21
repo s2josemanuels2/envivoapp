@@ -12,7 +12,7 @@ $(document).ready(function(){
 		usuario = prompt("Ingresa tu usuario");
 	}while (usuario.length === 0);
 	var video = document.getElementById("video");
-	var muestraVideo = false;
+	var muestraVideo = true;
 	$('#titulo').text(usuario.toUpperCase());
 	var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
 	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
