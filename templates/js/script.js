@@ -108,7 +108,7 @@ $(document).ready(function(){
 	});
 	$('.cajaMsj').on('keypress',function(event){
 		if(event.which === 13 && $(this).val().length !== 0 ){
-			$('.mensajes').append('<div style="text-align: -webkit-right;text-align: right;"><div class = "msjDer">'+$(this).val()+'</div></div>');
+			$('.mensajes').append('<div style="text-align: -webkit-right;"><div class = "msjDer">'+$(this).val()+'</div></div>');
 			var texto = $(this).val();
 			$(this).val("");
 			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
