@@ -18,6 +18,6 @@ io.on('connection',function(socket){
 	});
 });
 
-http.listen(port,'https://envivoapp.herokuapp.com/',function(){
+http.listen(port,function(){
 	console.log('Servidor corriendo');
 });
