@@ -9,16 +9,27 @@
   crossorigin="anonymous"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script src="/js/script.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/estilos.css">
 </head>
 <body>
 	<center><h2 id="titulo">Tú</h2></center>
-	<button id="apaga">Apagar webcam</button>
+	<div id="logger"></div>
+	<button class="btn btn-primary" id="apaga">Apagar webcam</button>
 	<center>
-		<video src="" id="video" style="width: 600px;height: 320px;" autoplay="true"></video>
+		<video src="" id="video" style="height: 320px;border-radius: 30%;" autoplay="true"></video>
 	</center>
 	<canvas id="preview"></canvas>
-	<div id="logger"></div>
-
+	<div class="chat">
+		<p class="equis">-</p>
+		<p class="titulo">CHAT</p>
+		<div class="mensajes">
+		</div>
+		<input class="form form-control cajaMsj" placeholder="Escribe un mensaje..." style="font-size: 13px;height: 30px;" type="text">
+	</div>
 	<center><h2>Gente en vivo</h2></center>
+	<div class="usuarios row">
+		
+	</div>
 </body>
 </html>

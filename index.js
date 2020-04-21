@@ -16,6 +16,10 @@ io.on('connection',function(socket){
 	socket.on('stream',function(data){
 		socket.broadcast.emit('streaming',data);
 	});
+
+	socket.on('mensaje',function(data){
+		socket.broadcast.emit('newmsj',data);
+	});
 });
 
 http.listen(port,function(){
