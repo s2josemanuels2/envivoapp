@@ -1,0 +1,15 @@
+{
+  "name": "envivo",
+  "version": "1.0.0",
+  "description": "Mi aplicación en vivo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jose Manuel Morales",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  }
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Video en vivo</title>
+	<script
+  src="https://code.jquery.com/jquery-3.5.0.js"
+  integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="/js/script.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<center><h2>Tú</h2></center>
+
+	<center>
+		<video src="" id="video" style="width: 600px;height: 320px;" autoplay="true"></video>
+	</center>
+	<canvas id="preview"></canvas>
+	<div id="logger"></div>
+
+	<center><h2>Gente transmitiendo</h2></center>
+</body>
+</html>
