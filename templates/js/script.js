@@ -9,7 +9,8 @@ $(document).ready(function(){
 	ctx.height = canvas.height;
 	var usuario = prompt("Ingresa tu usuario");
 	var video = document.getElementById("video");
-	$('#titulo').text(usuario);
+	var muestraVideo = true;
+	$('#titulo').text(usuario.toUpperCase());
 	var socket = io.connect('https://envivoapp.herokuapp.com:/',{ 'forceNew': true });
 	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
 
@@ -29,7 +30,8 @@ $(document).ready(function(){
 	}
 	function loadCam(stream){
 		logger('Cámara conectada correctamente.');
-		video.srcObject = stream;
+		if (muestraVideo)
+			video.srcObject = stream;
 	}
 
 	function loadFail(){
@@ -38,9 +40,21 @@ $(document).ready(function(){
 
 	function viewVideo(video_, ctx_){
 		ctx.drawImage(video_,0,0,ctx_.width,ctx_.height);
-		socket.emit('stream',{'img':canvas.toDataURL('image/webp'), 'user':usuario});
+		if (muestraVideo)
+			socket.emit('stream',{'img':canvas.toDataURL('image/webp'), 'user':usuario});
 	}
-
+	$('#apaga').click(function(){
+		if (muestraVideo) {
+			muestraVideo = false;
+			video.style.display = 'none';
+			$(this).html("Encender webcam");
+		}else{
+			muestraVideo = true;
+			video.style.display = '';
+			$(this).html("Apagar webcam");
+		}
+		
+	});
 	navigator.getUserMedia = ( 
 		navigator.getUserMedia ||
 		navigator.webkitGetUserMedia || 
@@ -49,9 +63,11 @@ $(document).ready(function(){
 	if (navigator.getUserMedia) {
 		//atributos de uso, callbacks
 		//navigator.mediaDevices.getUserMedia({video:true},loadCam,loadFail);
-		navigator.getUserMedia({video:true},loadCam,loadFail);
-		setInterval(function(){
-			viewVideo(video,ctx);
-		}, 70);
+		if(muestraVideo){
+			navigator.getUserMedia({video:true},loadCam,loadFail);
+			setInterval(function(){
+					viewVideo(video,ctx);
+			}, 70);
+		}
 	}
 });
