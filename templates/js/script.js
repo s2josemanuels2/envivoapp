@@ -55,7 +55,7 @@ $(document).ready(function(){
 		}
 		
 	});
-	navigator.getUserMedia = ( 
+	/*navigator.getUserMedia = ( 
 		navigator.getUserMedia ||
 		navigator.webkitGetUserMedia || 
 		navigator.mozGetUserMedia || 
@@ -64,10 +64,25 @@ $(document).ready(function(){
 		//atributos de uso, callbacks
 		//navigator.mediaDevices.getUserMedia({video:true},loadCam,loadFail);
 		if(muestraVideo){
-			navigator.getUserMedia({video:true},loadCam,loadFail);
+			//navigator.getUserMedia({video:true},loadCam,loadFail);
 			setInterval(function(){
 					viewVideo(video,ctx);
 			}, 70);
 		}
+	}*/
+	async function getMedia(constraints) {
+	  let stream = null;
+	  try {
+	    stream = await navigator.mediaDevices.getUserMedia(constraints);
+	    if(muestraVideo){
+		    loadCam(stream);
+		    setInterval(function(){
+				viewVideo(video,ctx);
+			}, 70);
+		}
+	  } catch(err) {
+	    loadFail();
+	  }
 	}
+	getMedia({video:true});
 });
