@@ -52,13 +52,17 @@ body{
 	background: #7CB7FA;
 	border-radius: 13px;
 	margin-top: 10px;
-	width: 60%;
+	max-width: 60%;
+	width: fit-content;
+	word-break: break-all;
+	min-width: 15px;
 }
 .msjIzq{
 	background: #D5D7D9;
 }
 .msjDer{
 	margin-left: 40%;
+	text-align: right;
 }
 .cajaMsj{
 	margin-top: 3px;

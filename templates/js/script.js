@@ -14,10 +14,10 @@ $(document).ready(function(){
 	var video = document.getElementById("video");
 	var muestraVideo = true;
 	$('#titulo').text(usuario.toUpperCase());
-	var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	//var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
-	//var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	//var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	//var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
 	socket2.on('streaming',function(data){
 		if(data['user'] && data['user'] !== usuario){
 			if ($('#'+data['user']).length === 0) {
@@ -30,8 +30,8 @@ $(document).ready(function(){
 
 	socket2.on('newmsj', function(data){
 		if(data['user'] && data['user'] !== usuario){
-			console.log('data: '+data['msj']);
 			$('.mensajes').append('<div><div class = "msjIzq">'+data['msj']+'</div></div>');
+			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
 		}
 	});
 
@@ -108,9 +108,10 @@ $(document).ready(function(){
 	});
 	$('.cajaMsj').on('keypress',function(event){
 		if(event.which === 13 && $(this).val().length !== 0 ){
-			$('.mensajes').append('<div><div class = "msjDer">'+$(this).val()+'</div></div>');
+			$('.mensajes').append('<div style="text-align: -webkit-right;text-align: right;"><div class = "msjDer">'+$(this).val()+'</div></div>');
 			var texto = $(this).val();
 			$(this).val("");
+			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
 			socket.emit('mensaje',{'user':usuario,'msj':texto});
 		}
 	});
