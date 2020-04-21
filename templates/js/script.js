@@ -10,8 +10,8 @@ $(document).ready(function(){
 	var usuario = prompt("Ingresa tu usuario");
 	var video = document.getElementById("video");
 
-	var socket = io.connect('http://127.0.0.1:8000',{ 'forceNew': true });
-	var socket2 = io.connect('http://127.0.0.1:8000',{ 'forceNew': true });
+	var socket = io.connect('https://envivoapp.herokuapp.com:/',{ 'forceNew': true });
+	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
 
 	socket2.on('streaming',function(data){
 		if(data['user'] !== usuario){
