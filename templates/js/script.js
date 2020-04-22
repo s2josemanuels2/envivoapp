@@ -7,10 +7,15 @@ $(document).ready(function(){
 	canvas.style.display = 'none';
 	ctx.width = canvas.width;
 	ctx.height = canvas.height;
-	var usuario;
+	var usuario = '';
+	var emoticones = [[":\\)",'&#128512;'],[":D",'&#128513;'],['xD','&#128518;'],
+	['jeje','&#128513;'],['jaja','&#128514;'],['ups','&#128517;'],[';\\)','&#128521;']
+	,['0:\\)','&#128519;'],['3:\\)','&#128520;'],['7u7','&#128527;'],['B\\)','&#128526;'],
+	['&#60;3','&#128147;'],['&#60;\/3','&#128148;'],[':\\(','&#128532;'],[":'\\(",'&#128557;']
+	,[':\\*','&#128536;']];
 	do{
 		usuario = prompt("Ingresa tu usuario");
-	}while (usuario.length === 0);
+	}while (usuario === null || usuario.length === 0);
 	var video = document.getElementById("video");
 	var muestraVideo = true;
 	$('#titulo').text(usuario.toUpperCase());
@@ -23,7 +28,6 @@ $(document).ready(function(){
 			if ($('#'+data['user']).length === 0) {
 				$('.usuarios').append('<div class="col-sm-4"><h2 class="titulouser">'+data['user'].toUpperCase()+'</h2><br><img width="100%" id="'+data['user']+'"></div>');
 			}
-			
 			$('#'+data['user']).attr('src',data['img']);
 		}
 	});
@@ -110,8 +114,16 @@ $(document).ready(function(){
 		if(event.which === 13 && $(this).val().length !== 0 ){
 			var aux = muestraVideo;
 			muestraVideo = false;
-			$('.mensajes').append('<div style="text-align: -webkit-right;"><div class = "msjDer">'+$(this).val()+'</div></div>');
-			var texto = $(this).val();
+			var texto = $(this).val().replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+		       return '&#'+i.charCodeAt(0)+';';
+		    });
+		    //var texto = encodedStr.replace(/&/gim, '&amp;');
+		    for (var i = 0; i < emoticones.length; i++) {
+		    	var re = new RegExp(emoticones[i][0],"gi");
+		    	texto = texto.replace(re,emoticones[i][1]);
+		    }
+		    var cad = '<div style="text-align: -webkit-right;"><div class = "msjDer">'+texto+'</div></div>';
+			$('.mensajes').append(cad);
 			$(this).val("");
 			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
 			socket.emit('mensaje',{'user':usuario,'msj':texto});
