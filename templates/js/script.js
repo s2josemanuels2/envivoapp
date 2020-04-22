@@ -108,13 +108,14 @@ $(document).ready(function(){
 	});
 	$('.cajaMsj').on('keypress',function(event){
 		if(event.which === 13 && $(this).val().length !== 0 ){
+			var aux = muestraVideo;
 			muestraVideo = false;
 			$('.mensajes').append('<div style="text-align: -webkit-right;"><div class = "msjDer">'+$(this).val()+'</div></div>');
 			var texto = $(this).val();
 			$(this).val("");
 			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
 			socket.emit('mensaje',{'user':usuario,'msj':texto});
-			muestraVideo = true;
+			muestraVideo = aux;
 		}
 	});
 });
