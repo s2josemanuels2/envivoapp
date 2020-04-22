@@ -89,7 +89,7 @@ $(document).ready(function(){
 		    loadCam(stream);
 		    setInterval(function(){
 				viewVideo(video,ctx);
-			}, 70);
+			}, 500);
 		}
 	  } catch(err) {
 	    loadFail();
