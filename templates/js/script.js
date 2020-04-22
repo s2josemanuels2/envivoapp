@@ -14,10 +14,10 @@ $(document).ready(function(){
 	var video = document.getElementById("video");
 	var muestraVideo = true;
 	$('#titulo').text(usuario.toUpperCase());
-	//var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	//var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
-	var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	//var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	//var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
 	socket2.on('streaming',function(data){
 		if(data['user'] && data['user'] !== usuario){
 			if ($('#'+data['user']).length === 0) {
