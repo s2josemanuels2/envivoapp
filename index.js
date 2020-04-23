@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/streaming', function(req, res) {
-	res.sendFile(__dirname+'\\templates\\visualizar.html');
+	res.sendFile(__dirname+'/templates/visualizar.html');
 });
 
 io.on('connection',function(socket){
