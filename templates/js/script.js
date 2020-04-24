@@ -45,9 +45,9 @@ $(document).ready(function(){
 
 	socket2.on('newaudio',function(data){
 		if(data['user'] && data['user'] !== usuario){
-			$('#audio').attr('src',data['voz']);
+			var url = URL.createObjectURL(new Blob([data['voz']]));
+			$('#audio').attr('src',url);
 			$('#audio').removeAttr('muted');
-			
 		}
 	});
 
@@ -174,8 +174,7 @@ $(document).ready(function(){
 	});
 	function sendWAVtoServer(blob) {
 		rec.stop();
-		var url = URL.createObjectURL(blob);
-		socket.emit('audio',{'voz':url,'user':usuario});
+		socket.emit('audio',{'voz':blob,'user':usuario});
 		rec.clear();
 		rec.record();
 	}
