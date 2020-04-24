@@ -25,8 +25,11 @@ io.on('connection',function(socket){
 	socket.on('mensaje',function(data){
 		socket.broadcast.emit('newmsj',data);
 	});
-});
 
+	socket.on('audio',function(urlblob){
+		socket.broadcast.emit('newaudio',urlblob);
+	});
+});
 http.listen(port,function(){
 	console.log('Servidor corriendo');
 });

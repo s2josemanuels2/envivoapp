@@ -18,11 +18,15 @@ $(document).ready(function(){
 	}while (usuario === null || usuario.length === 0);
 	var video = document.getElementById("video");
 	var muestraVideo = true;
+	let context;
+	let gumStream;
+	let muted = false;
+	let rec;
 	$('#titulo').text(usuario.toUpperCase());
-	var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
-	//var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
-	//var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	//var socket = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	//var socket2 = io.connect('https://envivoapp.herokuapp.com/',{ 'forceNew': true });
+	var socket = io.connect('http://localhost:8000/',{ 'forceNew': true });
+	var socket2 = io.connect('http://localhost:8000/',{ 'forceNew': true });
 	socket2.on('streaming',function(data){
 		if(data['user'] && data['user'] !== usuario){
 			if ($('#'+data['user']).length === 0) {
@@ -39,6 +43,14 @@ $(document).ready(function(){
 		}
 	});
 
+	socket2.on('newaudio',function(data){
+		if(data['user'] && data['user'] !== usuario){
+			$('#audio').attr('src',data['voz']);
+			$('#audio').removeAttr('muted');
+			
+		}
+	});
+
 	function logger(msj){
 		$('#logger').text(msj);
 	}
@@ -48,14 +60,19 @@ $(document).ready(function(){
 			video.srcObject = stream;
 	}
 
-	function loadFail(){
-		logger('Cámara no conectada. por favor enciendala.');
+	function loadFail(err){
+		logger('Cámara no conectada. por favor enciendala.\n'+err);
 	}
 
 	function viewVideo(video_, ctx_){
 		ctx.drawImage(video_,0,0,ctx_.width,ctx_.height);
 		if (muestraVideo)
 			socket.emit('stream',{'img':canvas.toDataURL('image/webp'), 'user':usuario});
+	}
+	function sendAudio(){
+		if (!muted) {
+			rec.exportWAV(sendWAVtoServer);
+		}
 	}
 	$('#apaga').click(function(){
 		if (muestraVideo) {
@@ -67,7 +84,6 @@ $(document).ready(function(){
 			video.style.display = '';
 			$(this).html("Apagar webcam");
 		}
-		
 	});
 	/*
 	navigator.getUserMedia = ( 
@@ -89,18 +105,44 @@ $(document).ready(function(){
 	  let stream = null;
 	  try {
 	    stream = await navigator.mediaDevices.getUserMedia(constraints);
+	    context = new AudioContext();
+		var microphone = context.createMediaStreamSource(stream);
+		var volume = context.createGain();
+		gumStream = stream;
+
+		microphone.connect(volume);
+		volume.connect(context.destination);
+		volume.gain.value = 0;
+
+		rec = new Recorder(microphone,{numChannels:1});
+		//start the recording process
+		rec.record();
 	    if(muestraVideo){
 		    loadCam(stream);
 		    setInterval(function(){
 				viewVideo(video,ctx);
 			}, 500);
+			setInterval(function(){
+				sendAudio();
+			}, 2000);
 		}
 	  } catch(err) {
-	    loadFail();
+	    loadFail(err);
 	  }
 	}
-	getMedia({video:true});
-
+	getMedia({video:true,audio:true});
+	$('#mute').click(function(){
+		if(!muted){
+			muted = true;
+			rec.stop();
+			rec.clear();
+			$(this).text('Activar sonido');
+		}else{
+			muted = false;
+			rec.record();
+			$(this).text('Desactivar sonido');
+		}
+	});
 	$('.chat').on('click','.equis',function(){
 		if ($('.chat').css('height') === '30px') {
 			$('.chat').css('height','350px');
@@ -130,4 +172,11 @@ $(document).ready(function(){
 			muestraVideo = aux;
 		}
 	});
+	function sendWAVtoServer(blob) {
+		rec.stop();
+		var url = URL.createObjectURL(blob);
+		socket.emit('audio',{'voz':url,'user':usuario});
+		rec.clear();
+		rec.record();
+	}
 });

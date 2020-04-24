@@ -8,6 +8,7 @@
   integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
   crossorigin="anonymous"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="/js/recorder.js" type="text/javascript" charset="utf-8"></script>
   <script src="/js/script.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/css/estilos.css">
@@ -16,8 +17,14 @@
 	<center><h2 id="titulo">Tú</h2></center>
 	<div id="logger"></div>
 	<button class="btn btn-primary" id="apaga">Apagar webcam</button>
+	<button class="btn btn-primary" id="mute">Desactivar sonido</button>
 	<center>
-		<video src="" id="video" style="height: 320px;border-radius: 30%;" autoplay="true"></video>
+		<video src="" id="video" muted style="height: 320px;border-radius: 30%;" autoplay="true"></video>
+		<!--<audio src="" style="display: none;" id="audio" muted></audio>-->
+		<audio controls autoplay id="audio" style="display: none;">
+		  <source src="" type="audio/wav">
+		  Your browser does not support the audio element.
+		</audio>
 	</center>
 	<canvas id="preview"></canvas>
 	<div class="chat">
