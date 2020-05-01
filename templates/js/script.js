@@ -1,14 +1,14 @@
 $(document).ready(function(){
-	var canvas = document.getElementById("preview");
-	var ctx = canvas.getContext("2d");
+	let canvas = document.getElementById("preview");
+	let ctx = canvas.getContext("2d");
 
 	canvas.width = 800;
 	canvas.height = 600;
 	canvas.style.display = 'none';
 	ctx.width = canvas.width;
 	ctx.height = canvas.height;
-	var usuario = '';
-	var emoticones = [[":\\)",'&#128512;'],[":D",'&#128513;'],['xD','&#128518;'],
+	let usuario = '';
+	let emoticones = [[":\\)",'&#128512;'],[":D",'&#128513;'],['xD','&#128518;'],
 	['jeje','&#128513;'],['jaja','&#128514;'],['ups','&#128517;'],[';\\)','&#128521;']
 	,['0:\\)','&#128519;'],['3:\\)','&#128520;'],['7u7','&#128527;'],['B\\)','&#128526;'],
 	['&#60;3','&#128147;'],['&#60;\/3','&#128148;'],[':\\(','&#128532;'],[":'\\(",'&#128557;']
@@ -16,8 +16,8 @@ $(document).ready(function(){
 	do{
 		usuario = prompt("Ingresa tu usuario");
 	}while (usuario === null || usuario.length === 0);
-	var video = document.getElementById("video");
-	var muestraVideo = true;
+	let video = document.getElementById("video");
+	let muestraVideo = true;
 	let context;
 	let gumStream;
 	let muted = false;
@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 	socket2.on('newmsj', function(data){
 		if(data['user'] && data['user'] !== usuario){
-			$('.mensajes').append('<div><div class = "msjIzq">'+data['msj']+'</div></div>');
+			$('.mensajes').append('<div><div class = "msjIzq">'+data['msj']+'</div><small>'+data['user']+'</small></div>');
 			$('.mensajes').scrollTop($('.mensajes').prop('scrollHeight'));
 		}
 	});
@@ -85,22 +85,7 @@ $(document).ready(function(){
 			$(this).html("Apagar webcam");
 		}
 	});
-	/*
-	navigator.getUserMedia = ( 
-		navigator.getUserMedia ||
-		navigator.webkitGetUserMedia || 
-		navigator.mozGetUserMedia || 
-		navigator.msGetUserMedia);
-	if (navigator.getUserMedia) {
-		//atributos de uso, callbacks
-		if(muestraVideo){
-			navigator.getUserMedia({video:true},loadCam,loadFail);
-			setInterval(function(){
-					viewVideo(video,ctx);
-			}, 70);
-		}
-	}*/
-	
+
 	async function getMedia(constraints) {
 	  let stream = null;
 	  try {
@@ -143,7 +128,7 @@ $(document).ready(function(){
 			$(this).text('Desactivar sonido');
 		}
 	});
-	$('.chat').on('click','.equis',function(){
+	$('.chat').on('click','.titulo, .equis',function(){
 		if ($('.chat').css('height') === '30px') {
 			$('.chat').css('height','350px');
 			$('.equis').html('-');

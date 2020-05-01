@@ -6,8 +6,6 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 8000;
 
 app.use(express.static('templates'));
-//app.set('view engine', 'html');
-
 app.get('/', function(req, res) {
 	res.redirect('index.html');
 });
