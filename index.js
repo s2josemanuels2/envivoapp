@@ -6,7 +6,7 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 8000;
 
 app.use(express.static('templates'));
-/*
+
 app.get('/', function(req, res) {
 	res.redirect('index.html');
 });
@@ -18,6 +18,6 @@ io.on('connection',function(socket){
 	});
 });
 
-http.listen(port,'https://envivoapp.herokuapp.com/',function(){
+http.listen(port,'127.0.0.1',function(){
 	console.log('Servidor corriendo');
-});*/
+});
