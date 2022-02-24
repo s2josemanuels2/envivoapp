@@ -1,0 +1,72 @@
+*{
+	font-family: sans-serif;
+}
+body{
+	margin-bottom: 30px;
+}
+#titulo,.titulo,.titulouser{
+	background: #7CB7FA;
+	color: white;
+	height: 40px;
+	padding-top: 5px;
+	text-align: center;
+	font-family: sans-serif;
+}
+.titulouser{
+	border-radius: 30px;
+}
+.usuarios{
+	width: 80%;
+	margin: auto;
+}
+.chat{
+	z-index: 2;
+	height: 350px;
+	width: 256px;
+	background: #e9ebee;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin-right: 50px;
+	-webkit-box-shadow: 0px -3px 14px -3px rgba(128,128,128,1);
+	-moz-box-shadow: 0px -3px 14px -3px rgba(128,128,128,1);
+	box-shadow: 0px -3px 14px -3px rgba(128,128,128,1);
+	font-size: 13px;
+}
+.chat > .titulo{
+	cursor: pointer;
+}
+.mensajes{
+	height: 265px;
+	max-height: 265px;
+	width: 99%;
+	margin-top: -13px;
+	overflow-y: scroll;
+	margin-left: 2px;
+}
+.chat > .equis{
+	float: right;
+	margin-right: 7px;
+	font-size: 23px;
+	cursor: pointer;
+	font-weight: bold;
+}
+.msjIzq, .msjDer{
+	padding: 4px;
+	background: #7CB7FA;
+	border-radius: 13px;
+	margin-top: 10px;
+	max-width: 60%;
+	width: fit-content;
+	min-width: 15px;
+}
+.msjIzq{
+	background: #D5D7D9;
+}
+.msjDer{
+	margin-left: 40%;
+	text-align: right;
+}
+.cajaMsj{
+	margin-top: 3px;
+}

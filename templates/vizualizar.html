@@ -7,18 +7,42 @@
   src="https://code.jquery.com/jquery-3.5.0.js"
   integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
   crossorigin="anonymous"></script>
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-  <script src="/js/script.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" src="./socket.io/socket.io.js"></script>
+  <script src="./js/script.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/recorder.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./css/estilos.css">
 </head>
 <body>
-	<center><h2>Tú</h2></center>
-
+	<center><h2 id="titulo">Tú</h2></center>
+	<div id="logger"></div>
+	<button class="btn btn-primary" id="apaga">Apagar webcam</button>
+	<button class="btn btn-primary" id="mute">Desactivar sonido</button>
 	<center>
-		<video src="" id="video" style="width: 600px;height: 320px;" autoplay="true"></video>
+		<video src="" id="video" muted style="height: 320px;border-radius: 30%;" autoplay="true"></video>
+		<!--<audio src="" style="display: none;" id="audio" muted></audio>-->
+		<audio controls autoplay id="audio" style="display: none;">
+		  <source src="" type="audio/wav">
+		  Your browser does not support the audio element.
+		</audio>
 	</center>
 	<canvas id="preview"></canvas>
-	<div id="logger"></div>
-
-	<center><h2>Gente transmitiendo</h2></center>
+	<div class="chat">
+		<p class="equis">-</p>
+		<p class="titulo" title="Oculta o muestra chat">CHAT</p>
+		<div class="mensajes">
+		</div>
+		<input class="form form-control cajaMsj" placeholder="Escribe un mensaje..." style="font-size: 13px;height: 30px;" type="text">
+	</div>
+	<center><h2>Gente en vivo</h2></center>
+	<div class="usuarios row">
+		
+	</div>
+	<iframe id="sn_va_web_client"
+    title="ServiceNow Virtual Agent Client"
+    width="600"
+    height="900"
+    src="https://grupobimbodrp.service-now.com/sn_va_web_client_app_embed.do">https://grupobimbodrp.service-now.com/"https://grupobimbodrp.service-now.com/
+	</iframe>
 </body>
 </html>
